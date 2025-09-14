@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10-Star Rating System</title>
+  <link rel="stylesheet" href="css/each-topic.css">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body.dark-mode {
+      background: #121212;
+      color: #f5f5f5;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, hsl(190, 60%, 88%), hsl(190, 65%, 75%));
+      color: hsl(170, 30%, 30%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: 1rem;
+    }
+
+#feedbackInput {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 1.2rem;        
+    font-family: Arial, sans-serif;
+    color: hsl(170, 30%, 30%);
+    transition: border-color 0.2s ease-in-out;
+  }
+
+  #feedbackInput::placeholder {
+    font-size: 1.2rem;        
+    font-family: Arial, sans-serif;
+    color: hsl(170, 30%, 50%);
+  }
+
+  #feedbackInput:focus {
+    border-color: hsl(165, 40%, 55%);
+    outline: none;
+  }
+
+
+  body.dark-mode #feedbackInput {
+    background-color: #1E1E1E;
+    border-color: #555;
+    color: #f5f5f5;
+  }
+
+  body.dark-mode #feedbackInput::placeholder {
+    color: #aaa;
+  }
+    .rating-container {
+      background-color: #ffffff;
+      padding: 3rem 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      max-width: 40rem;
+      width: 100%;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+    }
+
+
+    body.dark-mode .rating-container {
+      background-color: #1E1E1E;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark-mode .rating-container h1 {
+      color: #fff;
+    }
+
+    body.dark-mode .rating-container p {
+      color: #b0b0b0;
+    }
+
+    .rating-container h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: hsl(170, 30%, 30%);
+    }
+
+    .rating-container p {
+      font-size: 1.2rem;
+      color: hsla(170, 30%, 30%, 0.8);
+      margin-bottom: 2rem;
+    }
+
+
+    .star-container {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+
+    }
+
+    .rating-star {
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .rating-star:hover {
+      transform: scale(1.2);
+    }
+
+    .rating-star svg {
+      height: 3rem;
+      width: 3rem;
+      fill: currentColor;
+      color: #d1d5db;
+      transition: color 0.2s ease-in-out;
+    }
+
+
+    .rating-star.filled svg,
+    .rating-star:hover svg {
+      color: hsl(165, 40%, 55%);
+    }
+
+
+    .submit-button {
+      width: 100%;
+      background-color: hsl(165, 40%, 69%);
+      color: white;
+      font-weight: bold;
+      padding: 1rem 1.2rem;
+      font-size: 1.2rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      margin-top: 1rem;
+    }
+
+    .submit-button:hover {
+      background-color: hsl(170, 30%, 30%);
+    }
+
+
+    .message-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+    }
+
+    .message-box.show {
+      display: block;
+    }
+
+    .message-box.success {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .message-box.error {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+
+    .animated-svg-container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      margin-bottom: 2rem;
+    }
+
+    .animated-svg-container.show {
+      display: flex;
+    }
+
+
+
+
+    @media (max-width: 768px) {
+      .rating-container {
+        max-width: 95%;
+        padding: 2rem;
+      }
+
+      .rating-container h1 {
+        font-size: 2rem;
+      }
+
+      .rating-star svg {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .rating-star svg {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a style="position: absolute ; left: 20px; top: 20px;" href="index.html">
+
+    <button class="button">
+      <div class="button-box">
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+            </path>
+          </svg>
+        </span>
+        <span class="button-elem">
+          <svg viewBox="0 0 46 40">
+            <path
+              d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+            </path>
+          </svg>
+        </span>
+      </div>
+    </button>
+  </a>
+
+  <div data-aos="zoom-in" class="rating-container">
+    <h1 data-aos="fade-down" style="font-family: 'Clourso', sans-serif;">Dear Me Be Happy</h1>
+    <p>You can give a rating between 1 and 10 for this service.</p>
+
+    <div id="animatedSvgContainer" class="animated-svg-container"></div>
+
+    <div data-aos="fa-envelope" class="star-container" id="starContainer"></div>
+    <input type="hidden" id="ratingInput" name="rating">
+
+ 
+    <textarea id="feedbackInput" placeholder="Write your feedback here..." rows="4"
+      style="width: 100%; padding: 1rem;  margin-bottom: 1rem; border-radius: 0.75rem; border: 1px solid #ccc; resize: none;"></textarea>
+
+    <button id="submitButton" class="submit-button">Submit Rating</button>
+
+    <div id="messageBox" class="message-box"></div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
+  <script>
+    const feedbackInput = document.getElementById('feedbackInput');
+    const starContainer = document.getElementById('starContainer');
+    const ratingInput = document.getElementById('ratingInput');
+    const submitButton = document.getElementById('submitButton');
+    const messageBox = document.getElementById('messageBox');
+    const animatedSvgContainer = document.getElementById('animatedSvgContainer');
+
+    let selectedRating = 0;
+    let animation = null;
+
+
+    for (let i = 1; i <= 10; i++) {
+      const button = document.createElement('button');
+      button.classList.add('rating-star');
+      button.setAttribute('data-rating', i);
+      button.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 .587l3.668 7.568 8.332 1.209-6.001 5.856 1.416 8.258-7.415-3.899-7.415 3.899 
+                   1.416-8.258-6.001-5.856 8.332-1.209z"/>
+        </svg>
+      `;
+      starContainer.appendChild(button);
+    }
+
+    const stars = document.querySelectorAll('.rating-star');
+
+
+    function updateStars(rating) {
+      stars.forEach(star => {
+        const starRating = parseInt(star.getAttribute('data-rating'));
+        if (starRating <= rating) {
+          star.classList.add('filled');
+        } else {
+          star.classList.remove('filled');
+        }
+      });
+    }
+
+
+    stars.forEach(star => {
+      star.addEventListener('mouseenter', () => {
+        updateStars(parseInt(star.getAttribute('data-rating')));
+      });
+      star.addEventListener('mouseleave', () => {
+        updateStars(selectedRating);
+      });
+    });
+
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.getAttribute('data-rating'));
+        ratingInput.value = selectedRating;
+        updateStars(selectedRating);
+      });
+    });
+
+
+   submitButton.addEventListener('click', () => {
+  const feedbackText = feedbackInput.value.trim();
+
+  if (selectedRating === 0) {
+    showMessage('Please select a rating before submitting.', 'error');
+    return;
+  }
+
+  if (feedbackText === "") {
+    showMessage('Please write your feedback before submitting.', 'error');
+    return;
+  }
+
+  
+  playAnimation(selectedRating);
+
+  
+   feedbackInput.value = '';
+  selectedRating=0
+   updateStars(0);
+});
+
+
+    function showMessage(message, type) {
+      messageBox.textContent = message;
+      messageBox.className = `message-box show ${type}`;
+      setTimeout(() => {
+        messageBox.className = 'message-box';
+      }, 3000);
+    }
+
+
+    function playAnimation(rating) {
+      let animationPath = "";
+
+      if (rating <= 2) {
+        animationPath = "/asset/animation/Crying emoji.json";
+      } else if (rating <= 6) {
+        animationPath = "/asset/animation/Sad Face.json";
+      } else if (rating <= 8) {
+        animationPath = "/asset/animation/Cool emoji.json";
+      } else {
+        animationPath = "/asset/animation/Cute bear dancing.json";
+      }
+
+      animatedSvgContainer.classList.add('show');
+
+      if (animation) {
+        animation.destroy();
+      }
+
+      animation = lottie.loadAnimation({
+        container: animatedSvgContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: animationPath
+      });
+    }
+  </script>
+  <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-in-out'
+    });
+  </script>
+</body>
+
+</html>

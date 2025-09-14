@@ -1,0 +1,289 @@
+﻿
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: hsl(190, 60%, 88%);
+  color: hsl(170, 30%, 30%);
+  line-height: 1.6;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: hsl(170, 40%, 40%);
+}
+
+
+.page-header {
+  text-align: center;
+  padding: 4rem 1rem 2rem;
+  background: hsl(190, 60%, 92%);
+}
+
+.page-header h1 {
+  font-size: 2.8rem;
+  color: hsl(170, 30%, 30%);
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  font-size: 1.15rem;
+  color: hsl(170, 30%, 30%);
+}
+
+
+.consult-form-section {
+  max-width: 650px;
+  margin: 3rem auto;
+  padding: 3rem 2rem;
+  background: hsl(50, 80%, 93%);
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.consult-form-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.consult-form-section h2 {
+  font-size: 2rem;
+  color: hsl(170, 30%, 30%);
+  margin-bottom: 2rem;
+}
+
+
+.consult-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid hsl(165, 40%, 69%);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: transparent;
+  transition: 0.3s ease;
+  color: hsl(170, 30%, 30%);
+}
+
+.form-group textarea {
+  resize: none;
+  min-height: 140px;
+}
+
+.form-group label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: hsl(170, 30%, 40%);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: transparent;
+}
+
+input::placeholder {
+  font-size: 1rem;
+  color: #888;
+  opacity: 1;
+}
+
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label {
+  top: -0.6rem;
+  left: 0.8rem;
+  background: hsl(50, 80%, 93%);
+  padding: 0 0.3rem;
+  font-size: 0.8rem;
+  color: hsl(170, 30%, 30%);
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: hsl(170, 30%, 30%);
+  box-shadow: 0 0 8px hsla(170, 30%, 30%, 0.3);
+  outline: none;
+}
+
+
+.form-group input[type="date"] {
+  cursor: pointer;
+}
+
+
+.consult-form button {
+  padding: 1rem;
+  background: hsl(165, 40%, 69%);
+  color: hsl(50, 80%, 93%);
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.consult-form button:hover {
+  background: hsl(170, 30%, 30%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: hsl(165, 40%, 69%);
+  color: hsl(50, 80%, 93%);
+  margin-top: 3rem;
+  border-top: 2px solid hsl(50, 80%, 93%);
+  font-size: 0.95rem;
+}
+
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.dialog-box {
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.dialog-box h3 {
+  color: #2c7a7b;
+  margin-bottom: 0.5rem;
+}
+
+.dialog-box p {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.dialog-box button {
+  padding: 0.5rem 1.2rem;
+  background: #2c7a7b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.dialog-box button:hover {
+  background: #285e61;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .page-header p {
+    font-size: 1rem;
+  }
+
+  .consult-form-section {
+    padding: 2.5rem 1.5rem;
+    margin: 2rem 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
+
+  .consult-form button {
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .page-header p {
+    font-size: 0.95rem;
+  }
+
+  .consult-form-section {
+    padding: 2rem 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+
+  .consult-form button {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+
+  footer {
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+}
